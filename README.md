@@ -22,3 +22,7 @@ A week of job-alert email easily contains 40-80+ individual postings. Reading a 
 ## Status
 
 Actively iterating — these are working copies of skills I run against my own job search, published here to document the pattern as I refine it.
+
+## How this repo is maintained
+
+Changes are drafted through a chat with Claude, then landed here on their own feature branch and opened as a pull request rather than pushed straight to `main` — same review-before-merge discipline as any other codebase, even though the "codebase" is a set of skill instructions. `main` only moves when a PR is merged. Pull with `git pull` to sync your local clone whenever you want the latest merged state.
