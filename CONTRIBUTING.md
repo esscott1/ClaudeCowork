@@ -1,6 +1,6 @@
 # How this repo is maintained
 
-Changes are drafted through a chat with Claude, then landed here on their own feature branch and opened as a pull request rather than pushed straight to `main` — same review-before-merge discipline as any other codebase, even though the "codebase" is a set of skill instructions. `main` only moves when a PR is merged. Pull with `git pull` to sync your local clone whenever you want the latest merged state.
+Changes are drafted through a chat with Claude, then landed here on their own feature branch and opened as a pull request rather than pushed straight to `main` — same review-before-merge discipline as any other codebase, even though the "codebase" is a set of skill instructions. `main` only moves when a PR is merged. Pull with `git pull` to sync your local clone whenever you want the latest merged state. Merged feature branches are deleted on request ("clean up"), not automatically. [`CLAUDE.md`](CLAUDE.md) describes the procedure Claude follows for that and the rest of this workflow.
 
 ## Adding a new skill
 
