@@ -13,6 +13,18 @@ A portfolio of Claude Cowork skills I'm building and iterating on — kept here 
 
 Each category has its own README with the skills currently published there, their triggers, and dependencies.
 
+## Orchestration: the same workflow, owned end to end
+
+Skills are one way to run a workflow. [`orchestration/`](orchestration/job-search/README.md) holds the other: code-defined pipelines where I own the integrations, state and failure handling.
+
+| Path | What it is |
+|---|---|
+| [`orchestration/job-search/`](orchestration/job-search/README.md) | The job-search workflow as a LangGraph state graph. Business logic lives in a framework-free `core` package, and each orchestration approach is a sibling under `approaches/` |
+| [`docs/adr/`](docs/adr/) | Architecture decision records: why LangGraph here, why the tracker is the system of record |
+| [`docs/setup/`](docs/setup/job-search-langgraph.md) | Setup guide, including Google OAuth for a personal account |
+
+The skills version keeps running while the orchestrated version runs alongside it in shadow mode. Each part is cut over once its evals match ([ADR 0001](docs/adr/0001-orchestration-approach.md)).
+
 ## Conventions
 
 Every SKILL.md here follows a common shape, documented in [`docs/skill-template.md`](docs/skill-template.md), so skills stay easy to compare across categories as the list grows.
