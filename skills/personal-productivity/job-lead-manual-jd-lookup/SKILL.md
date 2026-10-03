@@ -21,7 +21,7 @@ Call the Drive connector's `search_files` with:
 - The old Excel file (`Job_Search_Tracker (archived xlsx ...).xlsx`) is a read-only archive from before the move to Google Sheets. Never read rows from it or write to it.
 
 ## Reading and writing the tracker
-- **Read** with `get_values` on `'Job Log'!A1:W`. Row 1 is the header. Find each column by its header text on every run rather than assuming a column letter, so a column Eric adds or moves doesn't break anything.
+- **Read** with `get_values` on `'Job Log'!A1:Z`. Row 1 is the header. Find each column by its header text on every run rather than assuming a column letter, so a column Eric adds or moves doesn't break anything.
 - **Find rows by ID** (`JS-0xx` in the "ID" column) at the moment you write, never by a row number remembered from earlier. Eric may sort or filter the sheet between your read and your write. Re-read the row just before writing and confirm its ID matches.
 - **Update** with `update_values` on just the cells this skill owns in that row (A1 range like `'Job Log'!J14:M14`). Don't rewrite whole rows or the whole sheet.
 - **Links:** write the Job Description cell with `update_formulas` as `=HYPERLINK("<url>","View posting")`.
@@ -40,12 +40,12 @@ Call the Drive connector's `search_files` with:
 - Start from the candidate URLs job-lead-tier2-scoring already tried (check the row's Job Description link and Notes) before searching fresh - no need to redo its web search from scratch unless those leads are dead ends too.
 
 ## 3. Scoring
-Load the `job-fit-rubric` skill and follow it, exactly as `job-lead-tier2-scoring` does: build the `tier2` evidence table from the JD you read, run its `score.py`, and use the returned `score` unchanged as the Fit Score. Jobs requiring relocation out of Colorado are capped at 3. Quote the JD's actual wording for the top 3 gaps, don't paraphrase vaguely.
+Load the `job-fit-rubric` skill and follow it, exactly as `job-lead-tier2-scoring` does: build the `tier2` evidence table from the JD you read, run its `score.py`, and use the returned `score` unchanged as the Fit Score. Jobs requiring relocation out of Colorado are capped at 3. Write the 3 biggest gaps into the single Gaps cell in the short bulleted format defined in `job-fit-rubric`.
 
 ## 4. Updating the row
 - Update the EXISTING row in place - never duplicate. Never touch Status.
 - Write updates with the Sheets connector, re-finding each row by ID just before writing it.
-- If a usable JD was found: overwrite Fit Score and Gap 1-3, set Notes to `"Full JD read (job-lead-manual-jd-lookup, browser) - <LinkedIn direct / site name>. <breakdown from score.py>"`, and set Last Updated to today.
+- If a usable JD was found: overwrite Fit Score and Gaps, set Notes to `"Full JD read (job-lead-manual-jd-lookup, browser) - <LinkedIn direct / site name>. <breakdown from score.py>"`, and set Last Updated to today.
 - If the posting genuinely has no JD anywhere reachable (LinkedIn confirmed empty and no other source exists), leave the score as-is but update Notes to say so plainly (e.g. `"Manual lookup attempted <date> - LinkedIn confirmed no JD body, no other source found. Still Tier 1."`) and Last Updated to today, so it doesn't get re-flagged forever.
 
 ## 5. End-of-run summary

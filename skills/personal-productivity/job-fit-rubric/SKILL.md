@@ -75,10 +75,17 @@ The resulting colour bands on the tracker are unchanged: 8-10 strong, 6-7 workab
 
 **Example breakdown in Notes:** `Rubric v1.0 | Req 1.5/3 · Pref 1/2 · coverage 50% · Title strong · Remote | raw 6.5 → 7`
 
+## The Gaps cell
+The tracker has one **Gaps** column, right next to Fit Score, so Eric can see the gaps without scrolling. Every skill writes it the same way:
+- Up to 3 gaps, biggest first, one per line, each starting with `• ` (bullet and space), lines separated by a line break inside the cell.
+- Each gap is a short phrase, about 2-8 words, naming what the job asks for that Big2 doesn't show. No full sentences, no quotes from the JD, no explanation.
+- Examples: `• No PMP`, `• Workday HCM not shown`, `• 3 of 10 yrs people mgmt`, `• Relocation required (TX)`.
+- Tier 1 rows (no JD read): `• JD not read yet`, plus any gap the alert email itself makes obvious (e.g. relocation).
+
 ## Changing the rubric
 Weights and caps live only in `score.py`. Change them there and in the table above in the same PR, bump `RUBRIC_VERSION`, and run the tests. Scores already in the tracker keep the version they were scored under (it's in their Notes); rescoring old rows is a separate, explicit request.
 
 ## Known constraints
 - Scores against Big2 only. If Eric has experience that isn't in Big2, it isn't evidence until he adds it to Big2 himself.
 - This skill never touches the tracker; the calling skill does.
-- Gap selection (Gap 1-3) is defined by each calling skill, not here.
+- Which gaps to list is each calling skill's call; only the format of the Gaps cell is fixed here.

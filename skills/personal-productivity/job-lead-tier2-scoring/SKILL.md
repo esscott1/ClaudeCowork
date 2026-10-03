@@ -21,7 +21,7 @@ Call the Drive connector's `search_files` with:
 - The old Excel file (`Job_Search_Tracker (archived xlsx ...).xlsx`) is a read-only archive from before the move to Google Sheets. Never read rows from it or write to it.
 
 ## Reading and writing the tracker
-- **Read** with `get_values` on `'Job Log'!A1:W`. Row 1 is the header. Find each column by its header text on every run rather than assuming a column letter, so a column Eric adds or moves doesn't break anything.
+- **Read** with `get_values` on `'Job Log'!A1:Z`. Row 1 is the header. Find each column by its header text on every run rather than assuming a column letter, so a column Eric adds or moves doesn't break anything.
 - **Find rows by ID** (`JS-0xx` in the "ID" column) at the moment you write, never by a row number remembered from earlier. Eric may sort or filter the sheet between your read and your write. Re-read the row just before writing and confirm its ID matches.
 - **Update** with `update_values` on just the cells this skill owns in that row (A1 range like `'Job Log'!J14:M14`). Don't rewrite whole rows or the whole sheet.
 - **Links:** write the Job Description cell with `update_formulas` as `=HYPERLINK("<url>","View posting")`.
@@ -50,15 +50,15 @@ Load the `job-fit-rubric` skill and follow it. In short:
 
 Eric won't relocate from Colorado; `score.py` caps any job requiring relocation at 3.
 
-List the top 3 gaps worded concretely - quote what the JD actually asks for, don't paraphrase vaguely.
+Write the 3 biggest gaps into the single Gaps cell in the short bulleted format defined in `job-fit-rubric`.
 
 ## 4. Updating the row
 - Update the EXISTING row in place - never create a duplicate. Never touch Status - leave whatever Eric has set it to.
 - Do the research for all rows first, then write the updates row by row with the Sheets connector, re-finding each row by ID just before writing it.
 - If the JD lists pay and the row's Pay Range is blank, fill it in. Put the source URL in Notes so job-lead-manual-jd-lookup and Eric can find it.
 - If the posting turns out to be closed or filled, say so in Notes and suggest Eric set Status to Closed (don't set it yourself); don't recommend a manual lookup for it.
-- **If a usable JD was found:** overwrite Fit Score and Gap 1-3, set Notes to `"Full JD read (job-lead-tier2-scoring, web search) - JD from <domain of the source URL>. <breakdown from score.py>"`, and set Last Updated to today.
-- **If no usable JD could be found after trying the candidates in step 2:** do NOT touch Fit Score or Gap 1-3 (leave the existing Tier 1 score standing). Instead update Notes to record the attempt and point at the manual fallback, e.g.: `"Tier 2 (web search) attempted <date> - no fetchable JD found off LinkedIn ([reason: e.g. no non-LinkedIn source found / sources blocked or JS-rendered / posting appears filled]). Tried: <domains tried>. Recommend running job-lead-manual-jd-lookup (needs Eric's browser) to check the LinkedIn posting or blocked sites directly."` Still update Last Updated to today so Eric can see this was recently touched.
+- **If a usable JD was found:** overwrite Fit Score and Gaps, set Notes to `"Full JD read (job-lead-tier2-scoring, web search) - JD from <domain of the source URL>. <breakdown from score.py>"`, and set Last Updated to today.
+- **If no usable JD could be found after trying the candidates in step 2:** do NOT touch Fit Score or Gaps (leave the existing Tier 1 score standing). Instead update Notes to record the attempt and point at the manual fallback, e.g.: `"Tier 2 (web search) attempted <date> - no fetchable JD found off LinkedIn ([reason: e.g. no non-LinkedIn source found / sources blocked or JS-rendered / posting appears filled]). Tried: <domains tried>. Recommend running job-lead-manual-jd-lookup (needs Eric's browser) to check the LinkedIn posting or blocked sites directly."` Still update Last Updated to today so Eric can see this was recently touched.
 
 ## 5. End-of-run summary
 Always end with a short summary, never silence:

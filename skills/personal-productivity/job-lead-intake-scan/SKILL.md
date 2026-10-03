@@ -23,7 +23,7 @@ Call the Drive connector's `search_files` with:
 - The old Excel file (`Job_Search_Tracker (archived xlsx ...).xlsx`) is a read-only archive from before the move to Google Sheets. Never read rows from it or write to it.
 
 ## Reading and writing the tracker
-- **Read** with `get_values` on `'Job Log'!A1:W`. Row 1 is the header. Find each column by its header text on every run rather than assuming a column letter, so a column Eric adds or moves doesn't break anything.
+- **Read** with `get_values` on `'Job Log'!A1:Z`. Row 1 is the header. Find each column by its header text on every run rather than assuming a column letter, so a column Eric adds or moves doesn't break anything.
 - **Find rows by ID** (`JS-0xx` in the "ID" column) at the moment you write, never by a row number remembered from earlier. Eric may sort or filter the sheet between your read and your write. Re-read the row just before writing and confirm its ID matches.
 - **Update** with `update_values` on just the cells this skill owns in that row (A1 range like `'Job Log'!J14:M14`). Don't rewrite whole rows or the whole sheet.
 - **Links:** write the Job Description cell with `update_formulas` as `=HYPERLINK("<url>","View posting")`.
@@ -65,7 +65,7 @@ Before adding any row, read the current tracker's Company + Job Title (and Job D
 ## 5. Writing new rows
 - Status is always **"Need to review"**.
 - Continue the existing `JS-0xx` ID sequence.
-- Fill: Date Found (today), Source, Company, Job Title, Job Description (hyperlink to the posting, or the Gmail message if there's no direct link), Type/Location, Pay Range (if stated), Fit Score, Gap 1-3, Status, Last Updated. Leave Tailored Resume / Resume Created / Date Submitted / Submission Email blank.
+- Fill: Date Found (today), Source, Company, Job Title, Job Description (hyperlink to the posting, or the Gmail message if there's no direct link), Type/Location, Pay Range (if stated), Fit Score, Gaps (format per `job-fit-rubric`), Status, Last Updated. Leave Tailored Resume / Resume Created / Date Submitted / Submission Email blank.
 - In Next Action/Notes, tag the row "Tier 1 screen" or "full JD" so Eric (and `job-lead-tier2-scoring`) know how much to trust the score, followed by the `breakdown` string `score.py` returned. The tracker's "Status Guide" tab documents the tiers and the rubric; keep that legend in sync if the logic changes.
 
 ## 6. End-of-run summary
