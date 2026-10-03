@@ -19,3 +19,7 @@ A job application's lifecycle runs for weeks or months: found, scored, tailored,
 - A second orchestration approach works against the same tracker with no migration.
 - The existing Excel tracker remains Version A's record during shadow mode. Importing it read-only is roadmap M2. Nothing writes to both.
 - If the tracker and a checkpoint ever disagree, the tracker wins, and the graph run is restarted with `--restart`.
+
+## Update, 2026-10-03
+
+Version A's tracker (the Claude skills) moved from the Excel workbook to a native Google Sheet, `Job_Search_Tracker`, edited cell by cell through the Google Sheets connector. Replacing the whole .xlsx on every cloud save changed its file ID each time and hit a size limit for unattended runs. The old workbook is kept as a read-only archive. The roadmap M2 read-only import should read from the Sheet.
