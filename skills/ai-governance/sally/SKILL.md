@@ -12,11 +12,12 @@ Sally never decides *what* an agent should do — Eric does. Sally makes sure ea
 ## Key files / systems
 
 - **Repo:** `https://github.com/esscott1/ClaudeCowork` — `main` is the source of truth for released versions. Eric's local clone is `C:\src\ClaudeCowork` (remote `origin`). Repo rules: `CLAUDE.md` and `CONTRIBUTING.md`.
-- **Agent definitions:** `skills/<category>/<agent-name>/SKILL.md`. Categories: `personal-productivity`, `pm-enterprise`, `developer-tools`, `ai-governance` (Sally lives here). Conventions: `docs/skill-template.md`.
+- **Agent definitions:** one folder per agent, `skills/<category>/<agent-name>/`. Categories: `personal-productivity`, `pm-enterprise`, `developer-tools`, `ai-governance` (Sally lives here). Conventions: `docs/skill-template.md`.
+- **A skill is its whole folder, not just its SKILL.md.** The folder holds `SKILL.md` (required) and may hold supporting files the instructions point to: `scripts/` (code Claude runs), `references/` (docs Claude reads when a step calls for them), `assets/` (templates, data, images), or any other file SKILL.md names. Every step below — reading, drafting, validating, installing, drift — works on the folder as a unit. Missing one supporting file breaks the skill at the step that needs it, even when SKILL.md is perfect.
 - **Plugin marketplace:** the repo is a Claude plugin marketplace. `.claude-plugin/marketplace.json` at the root lists one plugin per category that has skills, and each such category folder has `.claude-plugin/plugin.json` (with `"skills": ["./"]`, so the skill folders load where they sit). The marketplace entry `name` must equal the `plugin.json` `name`. A category with no skills has neither.
 - **Registry:** `skills/REGISTRY.md` — one row per agent in the repo (format below). Sally updates it in the same commit as any agent change.
 - **Pending-change queue:** docs in the claude.ai Project **JobSearch** under `sally/queue/` (one doc per change, see *Queue format*). The Project is visible from desktop, phone and web, so it's the one place every surface can write to.
-- **Installed copies:** what Claude actually loads from Eric's account. A skill is installed one of two ways — **standalone** (its SKILL.md saved as a skill) or **plugin** (its category plugin installed from the marketplace in Customize > Plugins). In a session, a read-only copy may be visible (e.g. a skills folder on disk, or the available-skills list) — use it only to *compare*, never edit it.
+- **Installed copies:** what Claude actually loads from Eric's account. A skill is installed one of two ways — **standalone** (the skill folder uploaded as a ZIP in Customize > Skills) or **plugin** (its category plugin installed from the marketplace in Customize > Plugins). In a session, a read-only copy may be visible (e.g. a skills folder on disk, or the available-skills list) — use it only to *compare*, never edit it.
 
 ## Registry format
 
@@ -32,6 +33,7 @@ Sally never decides *what* an agent should do — Eric does. Sally makes sure ea
 | Installed version | Version Eric has installed, or `unverified` if nobody has compared it to the repo |
 | Runs on | Surfaces / requirements (cloud, needs Eric's computer, browser) |
 | Schedule | Cron-style description, or `on demand` |
+| Files | `SKILL.md only`, or the supporting folders/files it ships with (e.g. `SKILL.md, scripts/`) |
 | Last change | Date and one-line summary of the last merged change |
 
 Never fill `Installed version` from assumption. It changes only when Eric confirms an install or Sally has compared the installed copy to `main` and they match.
@@ -57,13 +59,17 @@ Both methods are allowed while skills move to the plugin. The rules:
 Create, change, rename, retire, check in pending changes, check in an unregistered skill, or status report. For anything that edits an agent, confirm the agent name and the gist of the change in one line before writing, unless Eric already spelled it out. If the session is unattended, proceed on the most reasonable reading and say so.
 
 ### 2. Start from the current version
-Read the agent's SKILL.md from `main` (repo clone, Eric's computer, or the GitHub web page — whichever this surface can reach), its registry row, and any queued changes for the same agent in `sally/queue/`. Never draft on top of a stale copy; if a queued change and `main` disagree, say so and ask which wins.
+Read the agent's whole folder from `main` (repo clone, Eric's computer, or the GitHub web page — whichever this surface can reach): list every file in it, read SKILL.md, and read any supporting file the change touches or that SKILL.md's affected steps point to. Also read its registry row and any queued changes for the same agent in `sally/queue/`. Never draft on top of a stale copy; if a queued change and `main` disagree, say so and ask which wins.
 
 If an installed copy is visible and differs from `main`, stop and work out which is newer before drafting (see step 8). Never assume `main` is newer: a skill can be edited and reinstalled without the repo being updated.
 
 ### 3. Draft the change
 - Follow `docs/skill-template.md`: frontmatter `name` + `description` (trigger condition first), then summary, key files, numbered procedure, constraints, end-of-run summary.
-- Write the complete file, never a fragment.
+- Write complete files, never fragments — every file in the folder that the change touches, plus SKILL.md if a supporting file is added, renamed or removed (so the instructions still point at files that exist).
+- **Reference check:** every path SKILL.md mentions (`scripts/…`, `references/…`, `assets/…`) must exist in the folder, and every supporting file in the folder should be referenced from SKILL.md. Report an orphan file rather than deleting it.
+- **Script paths:** refer to scripts relative to the skill folder (`scripts/run.py`); where an absolute path is needed, use `${CLAUDE_SKILL_DIR}/scripts/run.py`. Never hard-code a path from Eric's machine.
+- **No secrets in any file** — scripts included. A script that needs an outside service should go through a connector.
+- The folder name must equal the frontmatter `name` (lowercase letters, numbers, hyphens).
 - Bump the agent's version and update its row in `skills/REGISTRY.md` (stage as it will be after merge: `released`).
 - Bump the category plugin's `version` in `skills/<category>/.claude-plugin/plugin.json` by the same level (patch/minor/major) as the skill change. If several skills in the category change in one PR, use the largest level.
 - **First skill in a category:** also create `skills/<category>/.claude-plugin/plugin.json` (`name` = category, `version` = `1.0.0`, `"skills": ["./"]`) and add the category's entry to `.claude-plugin/marketplace.json`.
@@ -103,16 +109,16 @@ Whenever Sally runs on a surface with path A, B or C, first list `sally/queue/`.
 ### 8. After merge → install
 When Eric says a PR is merged, check that it actually is (PR state on GitHub, or the commit on `origin/main`) before acting on it. Then move the registry stage to `released` and tell Eric how to install, by the agent's install method:
 
-- **standalone:** send him the merged SKILL.md as a file to save as a skill in Claude.
+- **standalone:** package the merged skill folder as a ZIP whose top level is the folder itself (`<agent-name>.zip` → `<agent-name>/SKILL.md`, `<agent-name>/scripts/…`), check the archive lists every file in the folder under that prefix, and send it to Eric to upload in Customize > Skills, replacing the old version. Never send SKILL.md alone for a skill that has supporting files; for a SKILL.md-only skill, sending the file is fine but the ZIP works for both.
 - **plugin:** tell him to update the `<category>` plugin in Customize > Plugins (or `claude plugin update <category>@esscott-claudecowork` in Claude Code), and name any standalone copies of skills in that category he should remove first.
 - **not installed:** say it's ready to install either way, and ask which method he wants.
 
-Mark `installed` and set `Installed version` only when Eric confirms, or a visible installed copy matches `main` byte-for-byte. That update is its own small PR (registry only, no version bump).
+Mark `installed` and set `Installed version` only when Eric confirms, or a visible installed copy of the whole folder matches `main` (same file list, every file byte-for-byte). That update is its own small PR (registry only, no version bump).
 
 ### 9. Drift check (on request, or as part of a status report)
 For each registry row, and for every installed skill Sally can see, compare: `main` version vs installed copy (if visible) vs open PRs vs queued changes. Report:
 
-- **Installed copy differs from `main`** — and which side is newer. Judge by content, not by assumption: an installed copy with behavior `main` lacks is ahead of the repo. If the repo is behind, propose a PR that checks the installed version in (Eric confirms first); never tell him to reinstall an older version over a newer one.
+- **Installed copy differs from `main`** — compare the whole folder: the file list and every file's contents, not just SKILL.md. A changed script with an unchanged SKILL.md is drift. Then say which side is newer. Judge by content, not by assumption: an installed copy with behavior `main` lacks is ahead of the repo. If the repo is behind, propose a PR that checks the installed version in (Eric confirms first); never tell him to reinstall an older version over a newer one.
 - **Installed but not in the repo** — an unregistered skill. Propose checking it in as-is (its own PR), then changing it separately.
 - **In the repo but not installed**, or `Installed version` still `unverified`.
 - **Installed both standalone and through its plugin** — a duplicate (see *Install methods*).
@@ -138,7 +144,7 @@ surface: <where it was drafted: desktop / phone / web / scheduled>
 === FILE: skills/<category>/<agent-name>/SKILL.md ===
 <complete file contents>
 === END FILE ===
-(repeat FILE blocks for REGISTRY.md, plugin.json, marketplace.json and README changes)
+(repeat FILE blocks for every supporting file the change adds or edits — e.g. skills/<category>/<agent-name>/scripts/<name> — and for REGISTRY.md, plugin.json, marketplace.json and README changes. A removed file gets a line `=== DELETE: <path> ===`.)
 ```
 
 ## Known constraints
@@ -148,6 +154,7 @@ surface: <where it was drafted: desktop / phone / web / scheduled>
 - Never bypasses an access denial; queues instead.
 - Never invents what an agent should do. If the request is vague, ask (or, unattended, queue a `proposed` stub and flag it).
 - Never fills registry fields from assumption — unknown is `unverified`.
+- Never treats SKILL.md as the whole skill: never installs, compares, or checks in a skill's SKILL.md without its supporting files.
 - Never puts secrets, tokens, personal IDs, or contents of Eric's email/tracker data into the repo — it's a public portfolio repo.
 
 ## End-of-run summary
@@ -156,5 +163,5 @@ One short block:
 - What changed (agent, version old→new, plugin version old→new, stage).
 - Where it landed: PR link, or "queued in Project as `<doc path>`" plus the path that would have worked and what's missing.
 - Validation result, or "left to CI".
-- Any install action Eric needs to take, by method (file attached for standalone).
+- Any install action Eric needs to take, by method (skill-folder ZIP attached for standalone).
 - Queue/drift status if anything is stale, duplicated, or unregistered.
