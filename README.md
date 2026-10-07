@@ -13,6 +13,17 @@ A portfolio of Claude Cowork skills I'm building and iterating on — kept here 
 
 Each category has its own README with the skills currently published there, their triggers, and dependencies.
 
+## Install as a plugin
+
+This repo is a Claude plugin marketplace ([`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json)). Each category that has skills is one installable plugin.
+
+- **claude.ai or the desktop app:** Customize > Plugins, add `esscott1/ClaudeCowork` as a marketplace, then install a plugin from it.
+- **Claude Code:** `claude plugin marketplace add esscott1/ClaudeCowork`, then `claude plugin install personal-productivity@esscott-claudecowork`.
+
+| Plugin | Skills |
+|---|---|
+| `personal-productivity` | `job-lead-intake-scan`, `job-lead-tier2-scoring` |
+
 ## Orchestration: the same workflow, owned end to end
 
 Skills are one way to run a workflow. [`orchestration/`](orchestration/job-search/README.md) holds the other: code-defined pipelines where I own the integrations, state and failure handling.
