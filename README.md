@@ -25,6 +25,7 @@ This repo is a Claude plugin marketplace ([`.claude-plugin/marketplace.json`](.c
 | Plugin | What it is | Skills |
 |---|---|---|
 | `personal-productivity` | JobSearchAssistant, a Cowork plugin for job-lead intake and fit scoring | `job-lead-intake-scan`, `job-lead-tier2-scoring` |
+| `ai-governance` | Sally, the lifecycle manager that lands every skill change here as a reviewed PR | `sally` |
 
 ## Orchestration: the same workflow, owned end to end
 
