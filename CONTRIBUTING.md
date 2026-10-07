@@ -6,7 +6,7 @@ Changes are drafted through a chat with Claude, then landed here on their own fe
 
 1. Pick the category it belongs to under `skills/` (`personal-productivity`, `pm-enterprise`, `developer-tools`, `ai-governance`) — or propose a new one if it genuinely doesn't fit any of those.
 2. Follow the conventions in [`docs/skill-template.md`](docs/skill-template.md) for the SKILL.md itself.
-3. Add or update that category's `README.md` table with the new skill, trigger, and dependencies.
+3. Add or update that category's `README.md` table with the new skill, trigger, and dependencies, and its row in [`skills/REGISTRY.md`](skills/REGISTRY.md).
 4. If the skill changes what's in the root `README.md`'s category index (a brand-new category, say), update that too.
 5. Each category is one plugin. Bump the `version` in the category's `.claude-plugin/plugin.json`. If this is the category's first skill, create that `plugin.json` and add the category to `.claude-plugin/marketplace.json`.
 6. Run `claude plugin validate .` and `claude plugin validate ./skills/<category>`.
