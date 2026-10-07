@@ -2,6 +2,8 @@
 
 A portfolio of Claude Cowork skills I'm building and iterating on — kept here to document the pattern, not just the output. Skills span a deliberately broad range: personal productivity automations, enterprise PM/reporting tooling, developer-focused code tasks, and AI governance/guardrail checks.
 
+> **JobSearchAssistant: a Claude Cowork plugin.** The job-search skills in this repo install together as one plugin that scans email for new job leads, screens them for fit, and logs them to a tracker. See [Install as a plugin](#install-as-a-plugin).
+
 ## Categories
 
 | Category | What it's for |
@@ -20,9 +22,9 @@ This repo is a Claude plugin marketplace ([`.claude-plugin/marketplace.json`](.c
 - **claude.ai or the desktop app:** Customize > Plugins, add `esscott1/ClaudeCowork` as a marketplace, then install a plugin from it.
 - **Claude Code:** `claude plugin marketplace add esscott1/ClaudeCowork`, then `claude plugin install personal-productivity@esscott-claudecowork`.
 
-| Plugin | Skills |
-|---|---|
-| `personal-productivity` | `job-lead-intake-scan`, `job-lead-tier2-scoring` |
+| Plugin | What it is | Skills |
+|---|---|---|
+| `personal-productivity` | JobSearchAssistant, a Cowork plugin for job-lead intake and fit scoring | `job-lead-intake-scan`, `job-lead-tier2-scoring` |
 
 ## Orchestration: the same workflow, owned end to end
 
