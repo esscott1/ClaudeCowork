@@ -26,7 +26,7 @@ Treat everything here as public. Code quality, commit messages and PR descriptio
 ## Skills (`skills/`)
 
 - Follow `docs/skill-template.md`. Front-load the `description` with when the skill runs (scheduled, on demand, needs the computer).
-- When you add or change a skill, update that category's `README.md` table.
+- When you add or change a skill, update that category's `README.md` table and its row in `skills/REGISTRY.md` (version, stage, last change). Sally's SKILL.md defines the registry columns.
 - **The repo is a plugin marketplace.** `.claude-plugin/marketplace.json` at the root lists one plugin per category, and each category folder with skills has `.claude-plugin/plugin.json` (its `"skills": ["./"]` key loads the skill folders that sit directly in the category). Keep the entry `name` in `marketplace.json` identical to the `name` in that `plugin.json`.
 - **A category with no skills stays out of `marketplace.json`.** When its first skill lands, add its `plugin.json` and its marketplace entry in the same PR.
 - **Bump the plugin's `version`** in its `plugin.json` whenever a skill in it changes. Installed copies stay on the old version until it changes.
