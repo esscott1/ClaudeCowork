@@ -1,0 +1,12 @@
+{
+  "name": "esscott-claudecowork",
+  "description": "Eric Scott's agentic skills, grouped by category. Each category is one installable plugin.",
+  "owner": { "name": "Eric Scott" },
+  "plugins": [
+    {
+      "name": "personal-productivity",
+      "source": "./skills/personal-productivity",
+      "description": "Job-search lead intake and scoring pipeline."
+    }
+  ]
+}

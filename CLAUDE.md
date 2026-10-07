@@ -27,6 +27,10 @@ Treat everything here as public. Code quality, commit messages and PR descriptio
 
 - Follow `docs/skill-template.md`. Front-load the `description` with when the skill runs (scheduled, on demand, needs the computer).
 - When you add or change a skill, update that category's `README.md` table.
+- **The repo is a plugin marketplace.** `.claude-plugin/marketplace.json` at the root lists one plugin per category, and each category folder with skills has `.claude-plugin/plugin.json` (its `"skills": ["./"]` key loads the skill folders that sit directly in the category). Keep the entry `name` in `marketplace.json` identical to the `name` in that `plugin.json`.
+- **A category with no skills stays out of `marketplace.json`.** When its first skill lands, add its `plugin.json` and its marketplace entry in the same PR.
+- **Bump the plugin's `version`** in its `plugin.json` whenever a skill in it changes. Installed copies stay on the old version until it changes.
+- Run `claude plugin validate .` and `claude plugin validate ./skills/<category>` before opening a PR that touches `skills/` or `.claude-plugin/`. CI runs the same checks.
 - **Editing a SKILL.md here does not update the installed skill** in Eric's Claude account. Installing is a separate step in the Claude app. Say so in the PR when a change needs reinstalling. The repo and the installed skills can drift, so check before assuming they match.
 
 ## Orchestration (`orchestration/job-search/`)
