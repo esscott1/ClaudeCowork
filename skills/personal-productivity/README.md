@@ -8,6 +8,7 @@ Skills that automate parts of my own day-to-day workflow — starting with job s
 | [`job-lead-tier2-scoring`](job-lead-tier2-scoring/SKILL.md) | On demand, or unattended on a schedule | Web search and fetch, Google Drive and Google Sheets connectors — cloud only, never LinkedIn |
 | [`job-lead-manual-jd-lookup`](job-lead-manual-jd-lookup/SKILL.md) | On demand, only when I'm at my computer | My signed-in Chrome (LinkedIn) or the desktop app's built-in browser, plus the Sheets connector |
 | [`job-fit-rubric`](job-fit-rubric/SKILL.md) | Never on its own; loaded by the three skills above whenever they set a Fit Score | Python 3 for `score.py` |
+| [`tailored-resume-builder`](tailored-resume-builder/SKILL.md) | On demand, when I want a 2-page resume for a specific job | `Eric-Full-Resume.md` and the Job-Seeker-6 Word template in Drive, plus Python (`python-docx`, LibreOffice) |
 
 The tracker is a Google Sheet edited in place through the Google Sheets connector, so every skill can update individual rows without replacing the file.
 

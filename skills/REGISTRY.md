@@ -10,5 +10,6 @@ Stages: `proposed` → `draft` → `in-review` → `released` → `installed` �
 | job-lead-tier2-scoring | personal-productivity | 2.1.0 | in-review | cloud (on demand or scheduled) | none | pre-registry | 2026-10-09: score against Eric-Full-Resume.md (found by name) instead of Eric_Scott_Resume-Big2.docx |
 | job-lead-manual-jd-lookup | personal-productivity | 2.1.0 | in-review | desktop (Eric's browser) | none | pre-registry | 2026-10-09: score against Eric-Full-Resume.md (found by name) instead of Eric_Scott_Resume-Big2.docx |
 | job-fit-rubric | personal-productivity | 1.1.0 | in-review | any (loaded by the three skills above) | none | not installed | 2026-10-09: score against Eric-Full-Resume.md (found by name) instead of Eric_Scott_Resume-Big2.docx |
+| tailored-resume-builder | personal-productivity | 1.0.0 | in-review | cloud or desktop, on demand | none | not installed | 2026-10-09: new skill; fills the Job-Seeker-6 template from Eric-Full-Resume.md for a given job description |
 
 "pre-registry" means the installed copy predates version tracking.
