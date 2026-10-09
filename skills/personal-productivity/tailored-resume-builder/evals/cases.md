@@ -4,7 +4,7 @@ Synthetic inputs only. `fixtures/synthetic_content.json` is a fictional career; 
 
 ## 1. Happy path: tailors and fits two pages
 Input: the synthetic inventory plus a JD for "Director of IT Program Delivery" that asks for cloud migration and vendor management.
-Pass: output uses the template layout; competencies and highlights lead with cloud migration and vendor management; every bullet traces to the inventory; `build_resume.py` reports 2 pages; files are named `Eric_Scott_Resume_<Company>_<Role>.docx/.pdf` and a `_JD.txt` is saved.
+Pass: output uses the template layout; competencies and highlights lead with cloud migration and vendor management; every bullet traces to the inventory; `build_resume.py` reports 2 pages; the .docx, .pdf and `_JD.txt` are all saved together in a `JobSearch2026/<Company>/` subfolder, named `Eric_Scott_Resume_<Company>_<Role>...`.
 
 ## 2. Should not act: no job description
 Input: "make me a resume for a Senior Engineer role at Acme" with no JD, no tracker row, no URL.
