@@ -9,7 +9,7 @@ The enrichment half of a two-skill pipeline. `job-lead-intake-scan` runs daily a
 
 ## Key files and systems
 - Folder: Google Drive "JobSearch2026", folder id `1rEJr3f7alZN0CPpk7qesZwOE0G2bFCfd`.
-- Master resume (the only evidence used for scoring): `Eric_Scott_Resume-Big2.docx`, Drive id `1nLzI0QVUbdlWoL6U8bDy3rdhnjCIM8jY`. Read-only for these skills; Eric edits it himself.
+- Career inventory (the only evidence used for scoring): `Eric-Full-Resume.md`, in the folder above. Find it by exact name (`title = 'Eric-Full-Resume.md'` and the folder's `parentId`) rather than a remembered file ID, and read it with `read_file_content`. It holds all of Eric's experience, not a two-page selection, so score against the whole file. Read-only for these skills; Eric edits it himself. If it isn't found, stop and report that; don't fall back to the old Big2 .docx, which is superseded.
 - Tracker: the Google Sheet `Job_Search_Tracker` in JobSearch2026, tabs "Job Log" and "Status Guide". Read and write it with the **Google Sheets connector**, which edits cells in place, so its file ID and link never change.
 - Scoring: the `job-fit-rubric` skill. Load it with the Skill tool before setting any Fit Score; it holds the evidence-table format and `score.py`.
 
@@ -45,7 +45,7 @@ For each row:
 
 ## 3. Scoring
 Load the `job-fit-rubric` skill and follow it. In short:
-1. **Judgment:** build its evidence table in `tier2` mode: every requirement quoted from the JD, marked required or preferred, with Big2 evidence strong / partial / none, plus title/seniority and work arrangement (remote, Colorado on-site or hybrid, relocation required, or unknown).
+1. **Judgment:** build its evidence table in `tier2` mode: every requirement quoted from the JD, marked required or preferred, with Eric-Full-Resume.md evidence strong / partial / none, plus title/seniority and work arrangement (remote, Colorado on-site or hybrid, relocation required, or unknown).
 2. **Arithmetic:** run its `score.py` on the table. The `score` it returns is the Fit Score, unchanged. If it looks wrong, fix the table, not the number.
 
 Eric won't relocate from Colorado; `score.py` caps any job requiring relocation at 3.

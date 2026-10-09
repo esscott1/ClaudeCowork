@@ -26,7 +26,7 @@ Write a JSON object:
   "title_seniority": "strong | partial | weak",
   "work_arrangement": "remote | colorado_onsite | colorado_hybrid | relocation_required | unknown",
   "requirements": [
-    {"text": "<quoted from the JD>", "type": "required | preferred", "evidence": "strong | partial | none", "big2_evidence": "<short quote or pointer from Big2, empty if none>"}
+    {"text": "<quoted from the JD>", "type": "required | preferred", "evidence": "strong | partial | none", "resume_evidence": "<short quote or pointer from Eric-Full-Resume.md, empty if none>"}
   ]
 }
 ```
@@ -36,10 +36,10 @@ Use `"mode": "tier1"` and omit `requirements` when no job description has been r
 **`requirements` (Tier 2 only).** One entry per distinct qualification in the JD.
 - `text`: the JD's own words, trimmed. Don't paraphrase.
 - `type`: `required` for anything under "Requirements", "Qualifications", "Must have", "You have", or stated as required, or as a minimum years figure. `preferred` for "Preferred", "Nice to have", "Bonus", "A plus", "Ideally". If the JD doesn't separate them, treat its main qualifications list as required and anything hedged ("familiarity with", "exposure to") as preferred.
-- `evidence`, judged against Big2 only, never against what Eric might know but hasn't written down:
-  - `strong`: Big2 directly shows it (same tool, method, certification, or responsibility, and at least the years asked for).
+- `evidence`, judged against Eric-Full-Resume.md only, never against what Eric might know but hasn't written down:
+  - `strong`: Eric-Full-Resume.md directly shows it (same tool, method, certification, or responsibility, and at least the years asked for).
   - `partial`: related or adjacent evidence (a comparable tool, fewer years, done but long ago, or only certification without hands-on delivery).
-  - `none`: nothing in Big2 supports it.
+  - `none`: nothing in Eric-Full-Resume.md supports it.
 - Combine near-duplicates (the same ask in two bullets is one entry). Leave out boilerplate that isn't a qualification (benefits, EEO, "passion for our mission"). A JD normally yields 6-20 entries.
 
 **`title_seniority`.** Compare the role's title and level with Eric's background (enterprise/solutions architecture, IT PMO and delivery leadership, technical program/project management, AI enablement, cloud/infrastructure consulting; senior/lead/principal/manager level).
@@ -78,7 +78,7 @@ The resulting colour bands on the tracker are unchanged: 8-10 strong, 6-7 workab
 ## The Gaps cell
 The tracker has one **Gaps** column, right next to Fit Score, so Eric can see the gaps without scrolling. Every skill writes it the same way:
 - Up to 3 gaps, biggest first, one per line, each starting with `• ` (bullet and space), lines separated by a line break inside the cell.
-- Each gap is a short phrase, about 2-8 words, naming what the job asks for that Big2 doesn't show. No full sentences, no quotes from the JD, no explanation.
+- Each gap is a short phrase, about 2-8 words, naming what the job asks for that Eric-Full-Resume.md doesn't show. No full sentences, no quotes from the JD, no explanation.
 - Examples: `• No PMP`, `• Workday HCM not shown`, `• 3 of 10 yrs people mgmt`, `• Relocation required (TX)`.
 - Tier 1 rows (no JD read): `• JD not read yet`, plus any gap the alert email itself makes obvious (e.g. relocation).
 
@@ -86,6 +86,6 @@ The tracker has one **Gaps** column, right next to Fit Score, so Eric can see th
 Weights and caps live only in `score.py`. Change them there and in the table above in the same PR, bump `RUBRIC_VERSION`, and run the tests. Scores already in the tracker keep the version they were scored under (it's in their Notes); rescoring old rows is a separate, explicit request.
 
 ## Known constraints
-- Scores against Big2 only. If Eric has experience that isn't in Big2, it isn't evidence until he adds it to Big2 himself.
+- Scores against Eric-Full-Resume.md only. If Eric has experience that isn't in Eric-Full-Resume.md, it isn't evidence until he adds it to Eric-Full-Resume.md himself.
 - This skill never touches the tracker; the calling skill does.
 - Which gaps to list is each calling skill's call; only the format of the Gaps cell is fixed here.

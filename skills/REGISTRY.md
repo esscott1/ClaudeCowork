@@ -6,9 +6,9 @@ Stages: `proposed` → `draft` → `in-review` → `released` → `installed` �
 
 | Agent | Category | Version | Stage | Surfaces | Schedule | Installed | Last change |
 |---|---|---|---|---|---|---|---|
-| job-lead-intake-scan | personal-productivity | 2.0.0 | in-review | cloud (scheduled) | daily 8:26am Mountain | pre-registry | 2026-10-03: tracker moved to Google Sheets; Fit Score from job-fit-rubric |
-| job-lead-tier2-scoring | personal-productivity | 2.0.0 | in-review | cloud (on demand or scheduled) | none | pre-registry | 2026-10-03: tracker moved to Google Sheets; scoring split into evidence table + score.py |
-| job-lead-manual-jd-lookup | personal-productivity | 2.0.0 | in-review | desktop (Eric's browser) | none | pre-registry | 2026-10-03: added to repo; tracker moved to Google Sheets; scoring via job-fit-rubric |
-| job-fit-rubric | personal-productivity | 1.0.0 | in-review | any (loaded by the three skills above) | none | not installed | 2026-10-03: created; rubric v1.0 |
+| job-lead-intake-scan | personal-productivity | 2.1.0 | in-review | cloud (scheduled) | daily 8:26am Mountain | pre-registry | 2026-10-09: score against Eric-Full-Resume.md (found by name) instead of Eric_Scott_Resume-Big2.docx |
+| job-lead-tier2-scoring | personal-productivity | 2.1.0 | in-review | cloud (on demand or scheduled) | none | pre-registry | 2026-10-09: score against Eric-Full-Resume.md (found by name) instead of Eric_Scott_Resume-Big2.docx |
+| job-lead-manual-jd-lookup | personal-productivity | 2.1.0 | in-review | desktop (Eric's browser) | none | pre-registry | 2026-10-09: score against Eric-Full-Resume.md (found by name) instead of Eric_Scott_Resume-Big2.docx |
+| job-fit-rubric | personal-productivity | 1.1.0 | in-review | any (loaded by the three skills above) | none | not installed | 2026-10-09: score against Eric-Full-Resume.md (found by name) instead of Eric_Scott_Resume-Big2.docx |
 
 "pre-registry" means the installed copy predates version tracking.
