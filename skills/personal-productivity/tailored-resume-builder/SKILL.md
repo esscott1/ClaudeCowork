@@ -12,7 +12,7 @@ Turns one job description into one 2-page resume in Eric's Job-Seeker-6 layout. 
 - Content source (the only source of facts): `Eric-Full-Resume.md`. Find it by exact name (`title = 'Eric-Full-Resume.md'` and the folder's `parentId`), never by remembered file ID. Read-only here; Eric edits it himself. If it isn't found, stop and say so.
 - Layout source (format only, no content): `Job-Seeker-6-Resume-Template-.docx`, found by exact name in the same folder. The template's sample text (a different person's career) must never reach the output; the script replaces all of it.
 - `build_resume.py` (this directory): `python3 build_resume.py --template <template.docx> --content content.json --out <file.docx> --pdf`. Needs `python-docx`; page counting needs LibreOffice (`soffice`) and `pdfinfo`. It prints JSON with `pages` and `warnings`, and exits 2 with a reason if `content.json` is invalid.
-- `evals/cases.md`: starter eval cases, with a synthetic fixture in `evals/fixtures/`.
+- Evals live in the repo-level `evals/tailored-resume-builder/` (cases and a synthetic fixture).
 
 ## Procedure
 1. **Get the job description.** Eric attaches it, pastes it, or names a tracker row (then find the JD source URL in Notes). If there is no usable JD, stop and ask. Never tailor to a job title alone.

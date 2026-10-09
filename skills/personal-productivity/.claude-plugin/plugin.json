@@ -1,0 +1,7 @@
+{
+  "name": "personal-productivity",
+  "version": "1.1.0",
+  "description": "Eric's day-to-day workflow automation: job-search lead intake, fit scoring, and tailored resume building.",
+  "author": { "name": "Eric Scott" },
+  "skills": ["./"]
+}

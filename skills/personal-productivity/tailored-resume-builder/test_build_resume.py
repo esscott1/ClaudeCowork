@@ -1,5 +1,5 @@
 """Tests for build_resume.py. Needs the real template via TEMPLATE env var; skipped otherwise.
-Uses only the synthetic fixture in evals/fixtures."""
+Uses only the synthetic fixture in evals/tailored-resume-builder/fixtures."""
 import json, os, subprocess, sys, pathlib
 import pytest
 docx = pytest.importorskip("docx")
@@ -14,7 +14,7 @@ def run(content, tmp_path):
                         "--content", str(cj), "--out", str(out)], capture_output=True, text=True)
     return r, out
 
-def fixture(): return json.loads((HERE / "evals/fixtures/synthetic_content.json").read_text())
+def fixture(): return json.loads((HERE.parents[2] / "evals/tailored-resume-builder/fixtures/synthetic_content.json").read_text())
 
 def test_fills_template_layout(tmp_path):
     r, out = run(fixture(), tmp_path); assert r.returncode == 0, r.stdout

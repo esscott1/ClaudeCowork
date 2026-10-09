@@ -1,0 +1,19 @@
+{
+  "name": "esscott-claudecowork",
+  "description": "Eric Scott's agentic skills, grouped by category. Each category is one installable plugin.",
+  "owner": {
+    "name": "Eric Scott"
+  },
+  "plugins": [
+    {
+      "name": "personal-productivity",
+      "source": "./skills/personal-productivity",
+      "description": "Job-search lead intake, fit scoring and tailored resumes."
+    },
+    {
+      "name": "ai-governance",
+      "source": "./skills/ai-governance",
+      "description": "Sally, the lifecycle manager for every skill in this repo."
+    }
+  ]
+}
